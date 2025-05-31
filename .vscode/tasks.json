@@ -1,0 +1,82 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Spring Boot: Run",
+            "type": "shell",
+            "command": "./mvnw",
+            "args": ["spring-boot:run"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "SPRING_PROFILES_ACTIVE": "dev"
+                }
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Spring Boot: Clean & Run",
+            "type": "shell",
+            "command": "./mvnw",
+            "args": ["clean", "spring-boot:run"],
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "SPRING_PROFILES_ACTIVE": "dev"
+                }
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Maven: Clean",
+            "type": "shell",
+            "command": "./mvnw",
+            "args": ["clean"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Maven: Test",
+            "type": "shell",
+            "command": "./mvnw",
+            "args": ["test"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        }
+    ]
+}

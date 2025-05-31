@@ -1,0 +1,15 @@
+{
+    "java.configuration.runtimes": [],
+    "java.compile.nullAnalysis.mode": "automatic",
+    "spring-boot.ls.java.home": null,
+    "spring-boot.ls.java.vmargs": [],
+    "spring-boot.ls.checkjvm": true,
+    "spring-boot.ls.problem.application-properties.PROP_UNKNOWN_PROPERTY": "WARNING",
+    "spring-boot.ls.problem.application-properties.PROP_INVALID_BEAN_NAVIGATION": "WARNING",
+    "spring-boot.ls.problem.application-properties.PROP_INVALID_INDEXED_NAVIGATION": "WARNING",
+    "spring-boot.ls.problem.application-properties.PROP_EXPECTED_DOT_OR_LBRACKET": "WARNING",
+    "spring-boot.ls.problem.application-properties.PROP_NO_MATCHING_RBRACKET": "WARNING",
+    "spring-boot.ls.problem.application-properties.PROP_NON_INTEGER_IN_BRACKETS": "WARNING",
+    "spring-boot.ls.problem.application-properties.PROP_INVALID_BEAN_NAVIGATION": "WARNING",
+    "spring-boot.ls.problem.application-properties.PROP_INVALID_INDEXED_NAVIGATION": "WARNING"
+}

@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-SpringflyApplication<springfly>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.loiane.springfly.SpringflyApplication",
+      "projectName": "springfly",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
