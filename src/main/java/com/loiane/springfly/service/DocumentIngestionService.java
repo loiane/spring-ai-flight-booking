@@ -94,7 +94,7 @@ public class DocumentIngestionService implements ApplicationRunner {
             
         } catch (Exception e) {
             logger.error("Error during document ingestion: {}", e.getMessage(), e);
-            throw new RuntimeException("Failed to ingest Springfly terms of service", e);
+            throw new DocumentIngestionException("Failed to ingest Springfly terms of service", e);
         }
     }
 
