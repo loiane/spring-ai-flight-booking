@@ -1,8 +1,11 @@
 package com.loiane.springfly.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class SpringFlyDB {
   
   private List<Passenger> passengers = new ArrayList<>();
