@@ -86,7 +86,6 @@ public class DocumentIngestionService implements ApplicationRunner {
             
             // Check if documents already exist to avoid duplicates
             if (shouldIngestDocuments()) {
-            throw new DocumentIngestionException("Failed to ingest Springfly terms of service", e);
                 vectorStore.add(splitDocuments);
                 logger.info("Successfully ingested {} document chunks into vector store", splitDocuments.size());
             } else {
