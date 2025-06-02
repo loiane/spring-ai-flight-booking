@@ -21,6 +21,10 @@ import java.util.Map;
 @Order(1) // Run first
 public class DocumentIngestionService implements ApplicationRunner {
 
+    private static final String SPRINGFLY_TERMS_OF_SERVICE = "springfly-terms-of-service";
+
+    private static final String SOURCE = "source";
+
     private static final Logger logger = LoggerFactory.getLogger(DocumentIngestionService.class);
 
     private final VectorStore vectorStore;
@@ -31,15 +35,6 @@ public class DocumentIngestionService implements ApplicationRunner {
         this.resourceLoader = resourceLoader;
     }
     
-    /**
-     * Custom exception for document ingestion errors.
-     */
-    class DocumentIngestionException extends RuntimeException {
-        public DocumentIngestionException(String message, Throwable cause) {
-            super(message, cause);
-        }
-    }
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
         logger.info("Starting document ingestion process...");
@@ -62,7 +57,7 @@ public class DocumentIngestionService implements ApplicationRunner {
             
             // Create a text reader for the markdown file
             TextReader textReader = new TextReader(resource);
-            textReader.getCustomMetadata().put("source", "springfly-terms-of-service");
+            textReader.getCustomMetadata().put(SOURCE, SPRINGFLY_TERMS_OF_SERVICE);
             textReader.getCustomMetadata().put("type", "terms-of-service");
             textReader.getCustomMetadata().put("airline", "Springfly Airlines");
             textReader.getCustomMetadata().put("last-updated", "2025-05-31");
@@ -75,14 +70,14 @@ public class DocumentIngestionService implements ApplicationRunner {
             List<Document> splitDocuments = textSplitter.apply(documents);
             
             // Add metadata to each split document
-            splitDocuments.forEach(doc -> {
+            splitDocuments.forEach(doc ->
                 doc.getMetadata().putAll(Map.of(
-                    "source", "springfly-terms-of-service",
+                    SOURCE, SPRINGFLY_TERMS_OF_SERVICE,
                     "type", "terms-of-service", 
                     "airline", "Springfly Airlines",
                     "last-updated", "2025-05-31"
-                ));
-            });
+                ))
+            );
 
             logger.info("Split document into {} chunks", splitDocuments.size());
             
@@ -96,7 +91,6 @@ public class DocumentIngestionService implements ApplicationRunner {
             
         } catch (Exception e) {
             logger.error("Error during document ingestion: {}", e.getMessage(), e);
-            throw new DocumentIngestionException("Failed to ingest Springfly terms of service", e);
         }
     }
 
@@ -108,9 +102,9 @@ public class DocumentIngestionService implements ApplicationRunner {
                 .topK(1)
                 .build();
             List<Document> existingDocs = vectorStore.similaritySearch(searchRequest);
-            boolean hasExisting = !existingDocs.isEmpty() && 
+            boolean hasExisting = existingDocs != null && !existingDocs.isEmpty() && 
                 existingDocs.stream().anyMatch(doc -> 
-                    "springfly-terms-of-service".equals(doc.getMetadata().get("source")));
+                    SPRINGFLY_TERMS_OF_SERVICE.equals(doc.getMetadata().get(SOURCE)));
             
             return !hasExisting;
         } catch (Exception e) {
