@@ -16,15 +16,15 @@ public record BookingDetails(
 
   public BookingDetails(Booking booking) {
     this(
-      booking.bookingNumber(),
-      booking.passenger().firstName(),
-      booking.passenger().lastName(),
-      booking.date(),
-      booking.bookingStatus(),
-      booking.from(),
-      booking.to(),
-      booking.seatNumber(),
-      booking.bookingClass().name()
+      booking.getBookingNumber(),
+      booking.getPassenger().firstName(),
+      booking.getPassenger().lastName(),
+      booking.getDate(),
+      booking.getBookingStatus(),
+      booking.getFrom(),
+      booking.getTo(),
+      booking.getSeatNumber(),
+      booking.getBookingClass().name()
     );
   }
 }
