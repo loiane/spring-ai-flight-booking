@@ -1,1 +1,19 @@
-<app-chat></app-chat>
+<div class="app-container">
+  <mat-tab-group [(selectedIndex)]="selectedTabIndex" class="app-tabs">
+    <mat-tab label="Chat Assistant">
+      <ng-template matTabContent>
+        <div class="tab-content">
+          <app-chat></app-chat>
+        </div>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab label="All Bookings">
+      <ng-template matTabContent>
+        <div class="tab-content">
+          <app-bookings></app-bookings>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

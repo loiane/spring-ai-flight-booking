@@ -1,0 +1,311 @@
+.bookings-container {
+  padding: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+// Header styles
+.bookings-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .title-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .header-icon {
+      font-size: 2rem;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 500;
+    }
+  }
+
+  .stats-section {
+    mat-chip-set {
+      gap: 0.5rem;
+    }
+
+    mat-chip {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-weight: 500;
+
+      .mat-mdc-chip-trailing-icon {
+        color: white;
+      }
+    }
+  }
+}
+
+// Filters card styles
+.filters-card {
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  mat-card-header {
+    margin-bottom: 1rem;
+
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #495057;
+      font-size: 1.25rem;
+    }
+  }
+
+  .filters-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 1rem;
+    align-items: end;
+
+    .search-field {
+      grid-column: 1;
+    }
+
+    .filter-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      button {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+// Table card styles
+.table-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+
+  .bookings-table {
+    width: 100%;
+    background: white;
+
+    th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+      color: #495057;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    td {
+      padding: 1rem 0.75rem;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    // Column specific styles
+    .date-cell {
+      color: #6c757d;
+      font-weight: 500;
+    }
+
+    .airport-code {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-weight: 600;
+      color: #495057;
+      background: #e9ecef;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
+
+    .seat-number {
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-weight: 600;
+      color: #6c757d;
+    }
+
+    .actions-cell {
+      display: flex;
+      gap: 0.25rem;
+      align-items: center;
+    }
+
+    // Status chip colors
+    mat-chip {
+      font-size: 0.75rem;
+      font-weight: 600;
+      min-height: 24px;
+
+      &[color="primary"] {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      &[color="warn"] {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      &[color="accent"] {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+    }
+  }
+
+  .table-paginator {
+    border-top: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+  }
+}
+
+// No data state
+.no-data {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+
+  .no-data-icon {
+    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  h3 {
+    margin: 0 0 0.5rem 0;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.8;
+  }
+}
+
+// Responsive design
+@media (max-width: 1200px) {
+  .filters-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    .filter-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+
+    .stats-section {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .bookings-container {
+    padding: 0.5rem;
+  }
+
+  .bookings-header {
+    .title-section h1 {
+      font-size: 1.5rem;
+    }
+
+    .stats-section {
+      mat-chip-set {
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  .table-container {
+    font-size: 0.875rem;
+
+    .bookings-table {
+      td, th {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+  }
+
+  .filter-actions {
+    flex-direction: column;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+// Dark theme support (optional)
+@media (prefers-color-scheme: dark) {
+  .bookings-container {
+    background-color: #1a1a1a;
+  }
+
+  .filters-card,
+  .table-card {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+  }
+
+  .bookings-table {
+    background: #2d2d2d;
+
+    th {
+      background-color: #404040;
+      color: #e0e0e0;
+      border-bottom-color: #555;
+    }
+
+    td {
+      border-bottom-color: #555;
+      color: #e0e0e0;
+    }
+
+    tr:hover {
+      background-color: #404040;
+    }
+
+    .airport-code {
+      background: #404040;
+      color: #e0e0e0;
+    }
+  }
+
+  .no-data {
+    color: #b0b0b0;
+  }
+}
