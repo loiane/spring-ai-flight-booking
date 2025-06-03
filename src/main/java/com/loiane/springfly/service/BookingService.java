@@ -41,7 +41,7 @@ public class BookingService {
   public void changeBooking(String bookingNumber, String firstName, String lastName, String newDate, String from,
 			String to) {
 		var booking = findBooking(bookingNumber, firstName, lastName);
-		if (booking.getDate().isBefore(LocalDate.now().plusDays(1))) {
+		if (booking.getBookingTo().isBefore(LocalDate.now().plusDays(1))) {
 			throw new IllegalArgumentException("Booking cannot be changed within 24 hours of the start date.");
 		}
 		booking.setDate(LocalDate.parse(newDate));
@@ -61,8 +61,5 @@ public class BookingService {
     return new BookingDetails(booking);
   }
 
-  public void changeSeat(String bookingNumber, String firstName, String lastName, String seatNumber) {
-		var booking = findBooking(bookingNumber, firstName, lastName);
-		booking.setSeatNumber(seatNumber);
-	}
+  
 }

@@ -1,1 +1,14 @@
 GET http://localhost:8080/api/terms/policy/booking
+
+### 
+
+POST http://localhost:8080/api/customer-support
+Content-Type: application/json
+
+{
+    "text": "but the flight is for July 13"
+}
+
+###
+GET http://localhost:8080/api/data/bookings
+
