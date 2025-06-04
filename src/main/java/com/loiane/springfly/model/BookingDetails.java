@@ -19,7 +19,7 @@ public record BookingDetails(
       booking.getBookingNumber(),
       booking.getPassenger().firstName(),
       booking.getPassenger().lastName(),
-      booking.getDate(),
+      booking.getBookingTo(),
       booking.getBookingStatus(),
       booking.getFrom(),
       booking.getTo(),

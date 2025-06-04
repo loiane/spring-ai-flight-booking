@@ -51,7 +51,7 @@ public class BookingService {
 
   public void cancelBooking(String bookingNumber, String firstName, String lastName) {
 		var booking = findBooking(bookingNumber, firstName, lastName);
-		if (booking.getDate().isBefore(LocalDate.now().plusDays(2))) {
+		if (booking.getBookingTo().isBefore(LocalDate.now().plusDays(2))) {
 			throw new IllegalArgumentException("Booking cannot be cancelled within 48 hours of the start date.");
 		}
 		booking.setBookingStatus(BookingStatus.CANCELLED);

@@ -65,16 +65,16 @@ public class DataInitializationService implements ApplicationRunner {
         
         // Flight routes
         String[][] routes = {
-            {"New York (JFK)", "Los Angeles (LAX)"},
-            {"Miami (MIA)", "Chicago (ORD)"},
-            {"San Francisco (SFO)", "Seattle (SEA)"},
-            {"Boston (BOS)", "Atlanta (ATL)"},
-            {"Denver (DEN)", "Phoenix (PHX)"},
-            {"Dallas (DFW)", "Las Vegas (LAS)"},
-            {"Orlando (MCO)", "Washington (DCA)"},
-            {"Detroit (DTW)", "Minneapolis (MSP)"},
-            {"Houston (IAH)", "San Diego (SAN)"},
-            {"Philadelphia (PHL)", "Tampa (TPA)"}
+            {"JFK", "LAX"},
+            {"MIA", "ORD"},
+            {"SFO", "SEA"},
+            {"BOS", "ATL"},
+            {"DEN", "PHX"},
+            {"DFW", "LAS"},
+            {"MCO", "DCA"},
+            {"DTW", "MSP"},
+            {"IAH", "SAN"},
+            {"PHL", "TPA"}
         };
 
         BookingStatus[] statuses = BookingStatus.values();
@@ -86,10 +86,10 @@ public class DataInitializationService implements ApplicationRunner {
             
             // Generate booking dates (some in the past, some in the future)
             LocalDate bookingDate = LocalDate.now().minusDays(random.nextInt(30));
-            LocalDate departureDate = bookingDate.plusDays(random.nextInt(60) + 1);
+            LocalDate departureDate = bookingDate.plusDays((long) random.nextInt(60) + 1);
             
             // Generate booking number
-            String bookingNumber = "SF" + String.format("%06d", 100000 + i);
+            String bookingNumber = String.format("%04d", 1000 + i);
             
             // Generate seat number based on booking class
             BookingClass bookingClass = classes[random.nextInt(classes.length)];

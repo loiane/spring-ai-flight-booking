@@ -65,9 +65,7 @@ export class BookingService {
         // Convert bookingNumber from string to number if needed
         const formattedBookings: FlightBooking[] = bookings.map(booking => ({
           ...booking,
-          bookingNumber: typeof booking.bookingNumber === 'string'
-            ? parseInt(booking.bookingNumber.replace('SF', ''), 10)
-            : booking.bookingNumber
+          bookingNumber: booking.bookingNumber
         }));
         this._bookings.set(formattedBookings);
       },
