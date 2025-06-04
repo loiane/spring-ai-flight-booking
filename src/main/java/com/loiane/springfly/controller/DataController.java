@@ -1,8 +1,8 @@
 package com.loiane.springfly.controller;
 
-import com.loiane.springfly.model.Booking;
-import com.loiane.springfly.model.Passenger;
-import com.loiane.springfly.model.SpringFlyDB;
+import com.loiane.springfly.model.BookingDetails;
+import com.loiane.springfly.service.BookingService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,28 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/data")
+@RequestMapping("/api/booking")
 public class DataController {
 
-    private final SpringFlyDB springFlyDB;
+    private final BookingService bookingService;
 
-    public DataController(SpringFlyDB springFlyDB) {
-        this.springFlyDB = springFlyDB;
+    public DataController(BookingService bookingService) {
+        this.bookingService = bookingService;
     }
 
-    /**
-     * Get all passengers
-     */
-    @GetMapping("/passengers")
-    public List<Passenger> getAllPassengers() {
-        return springFlyDB.getPassengers();
-    }
-
-    /**
-     * Get all bookings
-     */
-    @GetMapping("/bookings")
-    public List<Booking> getAllBookings() {
-        return springFlyDB.getBookings();
+    
+    @GetMapping
+    public List<BookingDetails> getAllBookings() {
+        return bookingService.getBookings();
     }
 }
