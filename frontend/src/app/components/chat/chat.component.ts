@@ -17,19 +17,6 @@ interface Message {
   content: string;
   isUser: boolean;
   timestamp: Date;
-  data?: FlightBooking[];
-}
-
-interface FlightBooking {
-  bookingNumber: number;
-  firstName: string;
-  lastName: string;
-  date: string;
-  bookingStatus: string;
-  from: string;
-  to: string;
-  seatNumber: string;
-  bookingClass: string;
 }
 
 @Component({
@@ -111,7 +98,7 @@ export class ChatComponent {
       },
       error: (error) => {
         console.error('Error sending message:', error);
-        
+
         // Fallback message if API fails
         const errorResponse: Message = {
           id: (Date.now() + 1).toString(),
