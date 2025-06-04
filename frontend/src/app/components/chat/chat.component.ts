@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, ViewChild, ElementRef, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -50,6 +50,9 @@ interface FlightBooking {
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent {
+  // ViewChild reference to the messages container for auto-scrolling
+  @ViewChild('messagesContainer') private readonly messagesContainer!: ElementRef;
+
   // Signals for reactive state management
   messages = signal<Message[]>([
     {
@@ -123,6 +126,15 @@ export class ChatComponent {
     this.messages().some(message => message.data && message.data.length > 0)
   );
 
+  constructor() {
+    // Effect to auto-scroll when messages change
+    effect(() => {
+      // This effect runs whenever messages() signal changes
+      this.messages();
+      this.scrollToBottom();
+    });
+  }
+
   sendMessage() {
     const messageText = this.currentMessage().trim();
     if (!messageText) return;
@@ -185,5 +197,15 @@ export class ChatComponent {
       default:
         return 'primary';
     }
+  }
+
+  // Scroll to the bottom of the messages container
+  private scrollToBottom(): void {
+    setTimeout(() => {
+      if (this.messagesContainer) {
+        const container = this.messagesContainer.nativeElement;
+        container.scrollTop = container.scrollHeight;
+      }
+    }, 100);
   }
 }
