@@ -70,11 +70,6 @@ export class ChatComponent {
   // Computed signal for display columns
   displayedColumns = signal(['bookingNumber', 'firstName', 'lastName', 'date', 'bookingStatus', 'from', 'to', 'seatNumber', 'bookingClass']);
 
-  // Computed signal to check if there are any messages with data
-  hasDataMessages = computed(() =>
-    this.messages().some(message => message.data && message.data.length > 0)
-  );
-
   constructor() {
     // Effect to auto-scroll when messages change
     effect(() => {
@@ -132,19 +127,6 @@ export class ChatComponent {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       this.sendMessage();
-    }
-  }
-
-  getStatusChipColor(status: string): string {
-    switch (status.toUpperCase()) {
-      case 'CONFIRMED':
-        return 'primary';
-      case 'CANCELLED':
-        return 'warn';
-      case 'PENDING':
-        return 'accent';
-      default:
-        return 'primary';
     }
   }
 
