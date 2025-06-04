@@ -7,7 +7,6 @@ import { FlightBooking, BookingFilter } from '../types/booking.types';
 })
 export class BookingService {
   private readonly _bookings = signal<FlightBooking[]>([]);
-  private readonly _filters = signal<BookingFilter>({});
   private readonly _isLoading = signal<boolean>(false);
 
   constructor(private readonly httpClient: HttpClient) {
@@ -17,49 +16,6 @@ export class BookingService {
   // Public readonly signals
   readonly bookings = this._bookings.asReadonly();
   readonly isLoading = this._isLoading.asReadonly();
-  readonly filteredBookings = computed(() => {
-    const bookings = this._bookings();
-    const filters = this._filters();
-
-    if (!bookings.length) return [];
-
-    return bookings.filter(booking => {
-      // Status filter
-      if (filters.status && booking.bookingStatus !== filters.status) {
-        return false;
-      }
-
-      // Date range filter
-      if (filters.dateFrom && new Date(booking.date) < new Date(filters.dateFrom)) {
-        return false;
-      }
-      if (filters.dateTo && new Date(booking.date) > new Date(filters.dateTo)) {
-        return false;
-      }
-
-      // Search term filter (searches across multiple fields)
-      if (filters.searchTerm) {
-        const searchTerm = filters.searchTerm.toLowerCase();
-        const searchableText = [
-          booking.bookingNumber.toString(),
-          booking.firstName,
-          booking.lastName,
-          booking.from,
-          booking.to,
-          booking.seatNumber,
-          booking.bookingClass
-        ].join(' ').toLowerCase();
-
-        if (!searchableText.includes(searchTerm)) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-  });
-
-  readonly filters = this._filters.asReadonly();
 
   private loadBookings(): void {
     this._isLoading.set(true); // Set loading to true on load
@@ -105,15 +61,6 @@ export class BookingService {
     });
   }
 
-  // Methods to update filters
-  updateFilters(filters: Partial<BookingFilter>) {
-    this._filters.update(current => ({ ...current, ...filters }));
-  }
-
-  clearFilters() {
-    this._filters.set({});
-  }
-
   // Method to refresh bookings data
   refreshBookings(): void {
     this.loadBookings();
@@ -124,11 +71,6 @@ export class BookingService {
     return computed(() =>
       this._bookings().find(booking => booking.bookingNumber === bookingNumber)
     );
-  }
-
-  // Method to add new booking (for future use)
-  addBooking(booking: FlightBooking) {
-    this._bookings.update(bookings => [...bookings, booking]);
   }
 
   // Method to update booking status

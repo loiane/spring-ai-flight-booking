@@ -46,7 +46,7 @@ export class ChatComponent {
   messages = signal<Message[]>([
     {
       id: '1',
-      content: 'To book a flight with Funair, you\'ll need to visit our website or use our mobile app. There you can select your desired flight, fill in the necessary personal information, and make a full payment to complete the booking.\n\nIf you have any other questions or need assistance during the booking process, feel free to ask! 😊✈️',
+      content: 'Hello, how can I help you today? 😊✈️',
       isUser: false,
       timestamp: new Date(),
     }
