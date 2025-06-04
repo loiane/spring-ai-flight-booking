@@ -47,7 +47,9 @@
           <ng-container matColumnDef="bookingStatus">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
             <td mat-cell *matCellDef="let booking">
-              <mat-chip selected>
+              <mat-chip
+                [class]="'status-' + booking.bookingStatus.toLowerCase()"
+                selected>
                 {{ booking.bookingStatus }}
               </mat-chip>
             </td>

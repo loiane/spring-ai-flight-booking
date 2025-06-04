@@ -196,19 +196,25 @@
       font-weight: 600;
       min-height: 24px;
 
-      &[color="primary"] {
+      // Confirmed status - Green
+      &.status-confirmed {
         background-color: #d4edda;
         color: #155724;
+        border: 1px solid #c3e6cb;
       }
 
-      &[color="warn"] {
-        background-color: #f8d7da;
-        color: #721c24;
+      // Completed status - Blue
+      &.status-completed {
+        background-color: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
       }
 
-      &[color="accent"] {
-        background-color: #fff3cd;
-        color: #856404;
+      // Cancelled status - Grey
+      &.status-cancelled {
+        background-color: #e2e3e5;
+        color: #383d41;
+        border: 1px solid #d6d8db;
       }
     }
   }
@@ -346,6 +352,30 @@
     .airport-code {
       background: #404040;
       color: #e0e0e0;
+    }
+
+    // Dark theme status chip colors
+    mat-chip {
+      // Confirmed status - Green (darker)
+      &.status-confirmed {
+        background-color: #1e4620;
+        color: #4caf50;
+        border: 1px solid #2e7d32;
+      }
+
+      // Completed status - Blue (darker)
+      &.status-completed {
+        background-color: #1a3f4a;
+        color: #2196f3;
+        border: 1px solid #1976d2;
+      }
+
+      // Cancelled status - Grey (darker)
+      &.status-cancelled {
+        background-color: #3c3c3c;
+        color: #9e9e9e;
+        border: 1px solid #616161;
+      }
     }
   }
 

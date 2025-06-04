@@ -65,51 +65,6 @@ export class BookingsComponent {
     if (this.sort) dataSource.sort = this.sort;
   }
 
-  // Export functionality
-  exportToCSV() {
-    const csvData = this.bookings().map(booking => ({
-      'Booking Number': booking.bookingNumber,
-      'Name': `${booking.firstName} ${booking.lastName}`,
-      'Date': booking.date,
-      'Status': booking.bookingStatus,
-      'From': booking.from,
-      'To': booking.to,
-      'Seat Number': booking.seatNumber,
-      'Booking Class': booking.bookingClass
-    }));
-
-    const csvString = this.convertToCSV(csvData);
-    this.downloadCSV(csvString, 'flight-bookings.csv');
-  }
-
-  private convertToCSV(data: any[]): string {
-    if (data.length === 0) return '';
-
-    const headers = Object.keys(data[0]);
-    const csvHeaders = headers.join(',');
-
-    const csvRows = data.map(row =>
-      headers.map(header => {
-        const value = row[header];
-        return typeof value === 'string' && value.includes(',')
-          ? `"${value}"`
-          : value;
-      }).join(',')
-    );
-
-    return [csvHeaders, ...csvRows].join('\n');
-  }
-
-  private downloadCSV(csvString: string, filename: string) {
-    const blob = new Blob([csvString], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.click();
-    window.URL.revokeObjectURL(url);
-  }
-
   // Refresh functionality
   refreshBookings() {
     this.bookingService.refreshBookings();
