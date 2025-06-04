@@ -27,7 +27,8 @@ interface FlightBooking {
   bookingStatus: string;
   from: string;
   to: string;
-  seat: string;
+  seatNumber: string;
+  bookingClass: string;
 }
 
 @Component({
@@ -69,7 +70,8 @@ export class ChatComponent {
           bookingStatus: 'CONFIRMED',
           from: 'SFO',
           to: 'LHR',
-          seat: '10A'
+          seatNumber: '10A',
+          bookingClass: 'ECONOMY'
         },
         {
           bookingNumber: 102,
@@ -79,7 +81,8 @@ export class ChatComponent {
           bookingStatus: 'CANCELLED',
           from: 'CDG',
           to: 'ARN',
-          seat: '14A'
+          seatNumber: '14A',
+          bookingClass: 'BUSINESS'
         },
         {
           bookingNumber: 103,
@@ -89,7 +92,8 @@ export class ChatComponent {
           bookingStatus: 'CONFIRMED',
           from: 'SJC',
           to: 'SJC',
-          seat: '17A'
+          seatNumber: '17A',
+          bookingClass: 'PREMIUM_ECONOMY'
         },
         {
           bookingNumber: 104,
@@ -99,7 +103,8 @@ export class ChatComponent {
           bookingStatus: 'CONFIRMED',
           from: 'SFO',
           to: 'TXL',
-          seat: '13A'
+          seatNumber: '13A',
+          bookingClass: 'ECONOMY'
         },
         {
           bookingNumber: 105,
@@ -109,7 +114,8 @@ export class ChatComponent {
           bookingStatus: 'CONFIRMED',
           from: 'LAX',
           to: 'SFO',
-          seat: '19A'
+          seatNumber: '19A',
+          bookingClass: 'BUSINESS'
         }
       ]
     }
@@ -119,7 +125,7 @@ export class ChatComponent {
   isLoading = signal(false);
 
   // Computed signal for display columns
-  displayedColumns = signal(['bookingNumber', 'firstName', 'lastName', 'date', 'bookingStatus', 'from', 'to', 'seat']);
+  displayedColumns = signal(['bookingNumber', 'firstName', 'lastName', 'date', 'bookingStatus', 'from', 'to', 'seatNumber', 'bookingClass']);
 
   // Computed signal to check if there are any messages with data
   hasDataMessages = computed(() =>

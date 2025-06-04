@@ -6,7 +6,8 @@ export interface FlightBooking {
   bookingStatus: 'CONFIRMED' | 'CANCELLED' | 'PENDING';
   from: string;
   to: string;
-  seat: string;
+  seatNumber: string;
+  bookingClass: string;
 }
 
 export interface BookingFilter {

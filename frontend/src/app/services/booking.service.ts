@@ -1,121 +1,51 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FlightBooking, BookingFilter } from '../types/booking.types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
-  // Sample data that matches the screenshot
-  private readonly _bookings = signal<FlightBooking[]>([
-    {
-      bookingNumber: 101,
-      firstName: 'John',
-      lastName: 'Doe',
-      date: '2025-05-31',
-      bookingStatus: 'CONFIRMED',
-      from: 'SFO',
-      to: 'LHR',
-      seat: '10A'
-    },
-    {
-      bookingNumber: 102,
-      firstName: 'Jane',
-      lastName: 'Smith',
-      date: '2025-06-02',
-      bookingStatus: 'CANCELLED',
-      from: 'CDG',
-      to: 'ARN',
-      seat: '14A'
-    },
-    {
-      bookingNumber: 103,
-      firstName: 'Michael',
-      lastName: 'Johnson',
-      date: '2025-06-04',
-      bookingStatus: 'CONFIRMED',
-      from: 'SJC',
-      to: 'SJC',
-      seat: '17A'
-    },
-    {
-      bookingNumber: 104,
-      firstName: 'Sarah',
-      lastName: 'Williams',
-      date: '2025-06-06',
-      bookingStatus: 'CONFIRMED',
-      from: 'SFO',
-      to: 'TXL',
-      seat: '13A'
-    },
-    {
-      bookingNumber: 105,
-      firstName: 'Robert',
-      lastName: 'Taylor',
-      date: '2025-06-08',
-      bookingStatus: 'CONFIRMED',
-      from: 'LAX',
-      to: 'SFO',
-      seat: '19A'
-    },
-    {
-      bookingNumber: 106,
-      firstName: 'Emily',
-      lastName: 'Davis',
-      date: '2025-06-10',
-      bookingStatus: 'PENDING',
-      from: 'JFK',
-      to: 'LAX',
-      seat: '22B'
-    },
-    {
-      bookingNumber: 107,
-      firstName: 'David',
-      lastName: 'Wilson',
-      date: '2025-06-12',
-      bookingStatus: 'CONFIRMED',
-      from: 'ORD',
-      to: 'MIA',
-      seat: '8C'
-    },
-    {
-      bookingNumber: 108,
-      firstName: 'Lisa',
-      lastName: 'Brown',
-      date: '2025-06-14',
-      bookingStatus: 'CANCELLED',
-      from: 'SEA',
-      to: 'DEN',
-      seat: '15D'
-    }
-  ]);
-
+  private readonly _bookings = signal<FlightBooking[]>([]);
   private readonly _filters = signal<BookingFilter>({});
 
-  // Public read-only signals
-  bookings = this._bookings.asReadonly();
-  filters = this._filters.asReadonly();
+  constructor(private readonly httpClient: HttpClient) {
+    this.loadBookings();
+  }
 
-  // Computed filtered bookings
-  filteredBookings = computed(() => {
+  // Public readonly signals
+  readonly bookings = this._bookings.asReadonly();
+  readonly filteredBookings = computed(() => {
     const bookings = this._bookings();
     const filters = this._filters();
 
+    if (!bookings.length) return [];
+
     return bookings.filter(booking => {
       // Status filter
-      if (filters.status && filters.status !== 'ALL' && booking.bookingStatus !== filters.status) {
+      if (filters.status && booking.bookingStatus !== filters.status) {
         return false;
       }
 
-      // Search term filter (searches in name, booking number, airports)
+      // Date range filter
+      if (filters.dateFrom && new Date(booking.date) < new Date(filters.dateFrom)) {
+        return false;
+      }
+      if (filters.dateTo && new Date(booking.date) > new Date(filters.dateTo)) {
+        return false;
+      }
+
+      // Search term filter (searches across multiple fields)
       if (filters.searchTerm) {
         const searchTerm = filters.searchTerm.toLowerCase();
         const searchableText = [
+          booking.bookingNumber.toString(),
           booking.firstName,
           booking.lastName,
-          booking.bookingNumber.toString(),
           booking.from,
           booking.to,
-          booking.seat
+          booking.seatNumber,
+          booking.bookingClass
         ].join(' ').toLowerCase();
 
         if (!searchableText.includes(searchTerm)) {
@@ -123,29 +53,54 @@ export class BookingService {
         }
       }
 
-      // Date range filter
-      if (filters.dateFrom && booking.date < filters.dateFrom) {
-        return false;
-      }
-
-      if (filters.dateTo && booking.date > filters.dateTo) {
-        return false;
-      }
-
       return true;
     });
   });
 
-  // Computed statistics
-  bookingStats = computed(() => {
-    const bookings = this._bookings();
-    return {
-      total: bookings.length,
-      confirmed: bookings.filter(b => b.bookingStatus === 'CONFIRMED').length,
-      cancelled: bookings.filter(b => b.bookingStatus === 'CANCELLED').length,
-      pending: bookings.filter(b => b.bookingStatus === 'PENDING').length
-    };
-  });
+  readonly filters = this._filters.asReadonly();
+
+  private loadBookings(): void {
+    this.httpClient.get<any[]>('/api/booking').subscribe({
+      next: (bookings) => {
+        // Convert bookingNumber from string to number if needed
+        const formattedBookings: FlightBooking[] = bookings.map(booking => ({
+          ...booking,
+          bookingNumber: typeof booking.bookingNumber === 'string'
+            ? parseInt(booking.bookingNumber.replace('SF', ''), 10)
+            : booking.bookingNumber
+        }));
+        this._bookings.set(formattedBookings);
+      },
+      error: (error) => {
+        console.error('Error loading bookings:', error);
+        // Fallback to sample data if backend is not available
+        this._bookings.set([
+          {
+            bookingNumber: 101,
+            firstName: 'John',
+            lastName: 'Doe',
+            date: '2025-05-31',
+            bookingStatus: 'CONFIRMED',
+            from: 'SFO',
+            to: 'LHR',
+            seatNumber: '10A',
+            bookingClass: 'ECONOMY'
+          },
+          {
+            bookingNumber: 102,
+            firstName: 'Jane',
+            lastName: 'Smith',
+            date: '2025-06-02',
+            bookingStatus: 'CANCELLED',
+            from: 'CDG',
+            to: 'ARN',
+            seatNumber: '14A',
+            bookingClass: 'BUSINESS'
+          }
+        ]);
+      }
+    });
+  }
 
   // Methods to update filters
   updateFilters(filters: Partial<BookingFilter>) {

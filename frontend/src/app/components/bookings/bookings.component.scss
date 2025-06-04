@@ -155,6 +155,16 @@
       color: #6c757d;
     }
 
+    .booking-class {
+      font-weight: 600;
+      color: #495057;
+      background: #f8f9fa;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+    }
+
     // Status chip colors
     mat-chip {
       font-size: 0.75rem;

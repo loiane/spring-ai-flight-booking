@@ -42,7 +42,8 @@ export class BookingsComponent {
     'bookingStatus',
     'from',
     'to',
-    'seat'
+    'seatNumber',
+    'bookingClass'
   ]);
 
   // Data source for Material Table
@@ -84,7 +85,8 @@ export class BookingsComponent {
       'Status': booking.bookingStatus,
       'From': booking.from,
       'To': booking.to,
-      'Seat': booking.seat
+      'Seat Number': booking.seatNumber,
+      'Booking Class': booking.bookingClass
     }));
 
     const csvString = this.convertToCSV(csvData);
