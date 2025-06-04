@@ -62,20 +62,6 @@ export class BookingsComponent {
     if (this.sort) dataSource.sort = this.sort;
   }
 
-  // Status chip color mapping
-  getStatusChipColor(status: string): 'primary' | 'accent' | 'warn' {
-    switch (status.toUpperCase()) {
-      case 'CONFIRMED':
-        return 'primary';
-      case 'PENDING':
-        return 'accent';
-      case 'CANCELLED':
-        return 'warn';
-      default:
-        return 'primary';
-    }
-  }
-
   // Export functionality
   exportToCSV() {
     const csvData = this.bookings().map(booking => ({

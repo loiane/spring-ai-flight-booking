@@ -17,7 +17,7 @@
 
           <!-- Booking Number Column -->
           <ng-container matColumnDef="bookingNumber">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Booking Number</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Number</th>
             <td mat-cell *matCellDef="let booking">
               <strong>{{ booking.bookingNumber }}</strong>
             </td>
@@ -39,9 +39,9 @@
 
           <!-- Status Column -->
           <ng-container matColumnDef="bookingStatus">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Booking Status</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
             <td mat-cell *matCellDef="let booking">
-              <mat-chip [color]="getStatusChipColor(booking.bookingStatus)" selected>
+              <mat-chip selected>
                 {{ booking.bookingStatus }}
               </mat-chip>
             </td>
@@ -65,7 +65,7 @@
 
           <!-- Seat Number Column -->
           <ng-container matColumnDef="seatNumber">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Seat Number</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Seat</th>
             <td mat-cell *matCellDef="let booking">
               <span class="seat-number">{{ booking.seatNumber }}</span>
             </td>
@@ -73,7 +73,7 @@
 
           <!-- Booking Class Column -->
           <ng-container matColumnDef="bookingClass">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Booking Class</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Class</th>
             <td mat-cell *matCellDef="let booking">
               <span class="booking-class">{{ booking.bookingClass }}</span>
             </td>

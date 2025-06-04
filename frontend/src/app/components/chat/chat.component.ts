@@ -61,63 +61,6 @@ export class ChatComponent {
       content: 'To book a flight with Funair, you\'ll need to visit our website or use our mobile app. There you can select your desired flight, fill in the necessary personal information, and make a full payment to complete the booking.\n\nIf you have any other questions or need assistance during the booking process, feel free to ask! 😊✈️',
       isUser: false,
       timestamp: new Date(),
-      data: [
-        {
-          bookingNumber: 101,
-          firstName: 'John',
-          lastName: 'Doe',
-          date: '2025-05-31',
-          bookingStatus: 'CONFIRMED',
-          from: 'SFO',
-          to: 'LHR',
-          seatNumber: '10A',
-          bookingClass: 'ECONOMY'
-        },
-        {
-          bookingNumber: 102,
-          firstName: 'Jane',
-          lastName: 'Smith',
-          date: '2025-06-02',
-          bookingStatus: 'CANCELLED',
-          from: 'CDG',
-          to: 'ARN',
-          seatNumber: '14A',
-          bookingClass: 'BUSINESS'
-        },
-        {
-          bookingNumber: 103,
-          firstName: 'Michael',
-          lastName: 'Johnson',
-          date: '2025-06-04',
-          bookingStatus: 'CONFIRMED',
-          from: 'SJC',
-          to: 'SJC',
-          seatNumber: '17A',
-          bookingClass: 'PREMIUM_ECONOMY'
-        },
-        {
-          bookingNumber: 104,
-          firstName: 'Sarah',
-          lastName: 'Williams',
-          date: '2025-06-06',
-          bookingStatus: 'CONFIRMED',
-          from: 'SFO',
-          to: 'TXL',
-          seatNumber: '13A',
-          bookingClass: 'ECONOMY'
-        },
-        {
-          bookingNumber: 105,
-          firstName: 'Robert',
-          lastName: 'Taylor',
-          date: '2025-06-08',
-          bookingStatus: 'CONFIRMED',
-          from: 'LAX',
-          to: 'SFO',
-          seatNumber: '19A',
-          bookingClass: 'BUSINESS'
-        }
-      ]
     }
   ]);
 
