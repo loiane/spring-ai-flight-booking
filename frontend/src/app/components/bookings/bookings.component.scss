@@ -40,7 +40,32 @@
       font-weight: 500;
     }
   }
-}
+
+    .refresh-button {
+      color: white;
+      transition: all 0.3s ease;
+
+      &:hover:not(:disabled) {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: rotate(180deg);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      mat-icon {
+        font-size: 1.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+
+        &.spinning {
+          animation: spin 1s linear infinite;
+        }
+      }
+    }
+  }
 
 // Filters card styles
 .filters-card {
@@ -326,5 +351,15 @@
 
   .no-data {
     color: #b0b0b0;
+  }
+}
+
+// Keyframes for refresh button animation
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

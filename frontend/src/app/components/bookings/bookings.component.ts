@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { BookingService } from '../../services/booking.service';
 
@@ -21,7 +22,8 @@ import { BookingService } from '../../services/booking.service';
     MatIconModule,
     MatChipsModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule
   ],
   templateUrl: './bookings.component.html',
   styleUrls: ['./bookings.component.scss']
@@ -33,6 +35,7 @@ export class BookingsComponent {
 
   // Data signals from service
   bookings = this.bookingService.bookings;
+  isLoading = this.bookingService.isLoading;
 
   // Table configuration
   displayedColumns = signal<string[]>([
@@ -105,5 +108,10 @@ export class BookingsComponent {
     link.download = filename;
     link.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  // Refresh functionality
+  refreshBookings() {
+    this.bookingService.refreshBookings();
   }
 }

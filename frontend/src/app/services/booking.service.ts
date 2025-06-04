@@ -8,6 +8,7 @@ import { FlightBooking, BookingFilter } from '../types/booking.types';
 export class BookingService {
   private readonly _bookings = signal<FlightBooking[]>([]);
   private readonly _filters = signal<BookingFilter>({});
+  private readonly _isLoading = signal<boolean>(false);
 
   constructor(private readonly httpClient: HttpClient) {
     this.loadBookings();
@@ -15,6 +16,7 @@ export class BookingService {
 
   // Public readonly signals
   readonly bookings = this._bookings.asReadonly();
+  readonly isLoading = this._isLoading.asReadonly();
   readonly filteredBookings = computed(() => {
     const bookings = this._bookings();
     const filters = this._filters();
@@ -60,6 +62,7 @@ export class BookingService {
   readonly filters = this._filters.asReadonly();
 
   private loadBookings(): void {
+    this._isLoading.set(true); // Set loading to true on load
     this.httpClient.get<any[]>('/api/booking').subscribe({
       next: (bookings) => {
         // Convert bookingNumber from string to number if needed
@@ -68,6 +71,7 @@ export class BookingService {
           bookingNumber: booking.bookingNumber
         }));
         this._bookings.set(formattedBookings);
+        this._isLoading.set(false); // Set loading to false on success
       },
       error: (error) => {
         console.error('Error loading bookings:', error);
@@ -96,6 +100,7 @@ export class BookingService {
             bookingClass: 'BUSINESS'
           }
         ]);
+        this._isLoading.set(false); // Set loading to false on error
       }
     });
   }
@@ -107,6 +112,11 @@ export class BookingService {
 
   clearFilters() {
     this._filters.set({});
+  }
+
+  // Method to refresh bookings data
+  refreshBookings(): void {
+    this.loadBookings();
   }
 
   // Method to get booking by number
