@@ -1,7 +1,6 @@
 import { Component, signal, computed, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,7 +16,6 @@ import { BookingService } from '../../services/booking.service';
   imports: [
     CommonModule,
     MatTableModule,
-    MatPaginatorModule,
     MatSortModule,
     MatButtonModule,
     MatIconModule,
@@ -29,7 +27,6 @@ import { BookingService } from '../../services/booking.service';
   styleUrls: ['./bookings.component.scss']
 })
 export class BookingsComponent {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   private readonly bookingService = inject(BookingService);
@@ -40,8 +37,7 @@ export class BookingsComponent {
   // Table configuration
   displayedColumns = signal<string[]>([
     'bookingNumber',
-    'firstName',
-    'lastName',
+    'name',
     'date',
     'bookingStatus',
     'from',
@@ -52,18 +48,16 @@ export class BookingsComponent {
   // Data source for Material Table
   dataSource = computed(() => {
     const data = new MatTableDataSource(this.bookings());
-    // Set paginator and sort after view init
+    // Set sort after view init
     setTimeout(() => {
-      if (this.paginator) data.paginator = this.paginator;
       if (this.sort) data.sort = this.sort;
     });
     return data;
   });
 
   ngAfterViewInit() {
-    // Initialize table with paginator and sort
+    // Initialize table with sort
     const dataSource = this.dataSource();
-    if (this.paginator) dataSource.paginator = this.paginator;
     if (this.sort) dataSource.sort = this.sort;
   }
 
@@ -85,8 +79,7 @@ export class BookingsComponent {
   exportToCSV() {
     const csvData = this.bookings().map(booking => ({
       'Booking Number': booking.bookingNumber,
-      'First Name': booking.firstName,
-      'Last Name': booking.lastName,
+      'Name': `${booking.firstName} ${booking.lastName}`,
       'Date': booking.date,
       'Status': booking.bookingStatus,
       'From': booking.from,
