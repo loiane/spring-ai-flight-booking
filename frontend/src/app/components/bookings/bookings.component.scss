@@ -40,23 +40,6 @@
       font-weight: 500;
     }
   }
-
-  .stats-section {
-    mat-chip-set {
-      gap: 0.25rem;
-    }
-
-    mat-chip {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      font-weight: 500;
-      font-size: 0.75rem;
-
-      .mat-mdc-chip-trailing-icon {
-        color: white;
-      }
-    }
-  }
 }
 
 // Filters card styles
@@ -170,12 +153,6 @@
       font-family: 'Monaco', 'Menlo', monospace;
       font-weight: 600;
       color: #6c757d;
-    }
-
-    .actions-cell {
-      display: flex;
-      gap: 0.25rem;
-      align-items: center;
     }
 
     // Status chip colors

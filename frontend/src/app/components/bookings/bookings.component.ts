@@ -1,44 +1,29 @@
 import { Component, signal, computed, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 
 import { BookingService } from '../../services/booking.service';
-import { FlightBooking } from '../../types/booking.types';
 
 @Component({
   selector: 'app-bookings',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
     MatButtonModule,
     MatIconModule,
     MatChipsModule,
     MatCardModule,
-    MatToolbarModule,
-    MatBadgeModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    MatToolbarModule
   ],
   templateUrl: './bookings.component.html',
   styleUrls: ['./bookings.component.scss']
@@ -49,15 +34,8 @@ export class BookingsComponent {
 
   private readonly bookingService = inject(BookingService);
 
-  // Signals for component state
-  searchTerm = signal('');
-  selectedStatus = signal('ALL');
-  dateFrom = signal<Date | null>(null);
-  dateTo = signal<Date | null>(null);
-
   // Data signals from service
-  bookings = this.bookingService.filteredBookings;
-  stats = this.bookingService.bookingStats;
+  bookings = this.bookingService.bookings;
 
   // Table configuration
   displayedColumns = signal<string[]>([
@@ -68,8 +46,7 @@ export class BookingsComponent {
     'bookingStatus',
     'from',
     'to',
-    'seat',
-    'actions'
+    'seat'
   ]);
 
   // Data source for Material Table
@@ -83,53 +60,11 @@ export class BookingsComponent {
     return data;
   });
 
-  // Status options for filter
-  statusOptions = [
-    { value: 'ALL', label: 'All Status' },
-    { value: 'CONFIRMED', label: 'Confirmed' },
-    { value: 'CANCELLED', label: 'Cancelled' },
-    { value: 'PENDING', label: 'Pending' }
-  ];
-
   ngAfterViewInit() {
     // Initialize table with paginator and sort
     const dataSource = this.dataSource();
     if (this.paginator) dataSource.paginator = this.paginator;
     if (this.sort) dataSource.sort = this.sort;
-  }
-
-  // Filter methods
-  onSearchChange() {
-    this.updateFilters();
-  }
-
-  onStatusChange() {
-    this.updateFilters();
-  }
-
-  onDateFromChange() {
-    this.updateFilters();
-  }
-
-  onDateToChange() {
-    this.updateFilters();
-  }
-
-  private updateFilters() {
-    this.bookingService.updateFilters({
-      searchTerm: this.searchTerm(),
-      status: this.selectedStatus() === 'ALL' ? undefined : this.selectedStatus(),
-      dateFrom: this.dateFrom()?.toISOString().split('T')[0],
-      dateTo: this.dateTo()?.toISOString().split('T')[0]
-    });
-  }
-
-  clearFilters() {
-    this.searchTerm.set('');
-    this.selectedStatus.set('ALL');
-    this.dateFrom.set(null);
-    this.dateTo.set(null);
-    this.bookingService.clearFilters();
   }
 
   // Status chip color mapping
@@ -143,25 +78,6 @@ export class BookingsComponent {
         return 'warn';
       default:
         return 'primary';
-    }
-  }
-
-  // Action methods
-  viewBookingDetails(booking: FlightBooking) {
-    console.log('View details for booking:', booking.bookingNumber);
-    // Future implementation: Navigate to booking details page or open details modal
-    alert(`Viewing details for booking ${booking.bookingNumber}\nPassenger: ${booking.firstName} ${booking.lastName}\nFlight: ${booking.from} → ${booking.to}\nStatus: ${booking.bookingStatus}`);
-  }
-
-  editBooking(booking: FlightBooking) {
-    console.log('Edit booking:', booking.bookingNumber);
-    // Future implementation: Navigate to edit form or open edit modal
-    alert(`Edit functionality for booking ${booking.bookingNumber} will be implemented in future updates.`);
-  }
-
-  cancelBooking(booking: FlightBooking) {
-    if (confirm(`Are you sure you want to cancel booking ${booking.bookingNumber}?`)) {
-      this.bookingService.updateBookingStatus(booking.bookingNumber, 'CANCELLED');
     }
   }
 

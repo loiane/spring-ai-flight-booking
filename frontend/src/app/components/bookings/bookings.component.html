@@ -1,113 +1,13 @@
 <div class="bookings-container">
-  <!-- Header with title and stats -->
+  <!-- Header with title -->
   <mat-toolbar class="bookings-header">
     <div class="header-content">
       <div class="title-section">
         <mat-icon class="header-icon">flight_takeoff</mat-icon>
         <h1>Flight Bookings</h1>
       </div>
-
-      <div class="stats-section">
-        <mat-chip-set>
-          <mat-chip [matBadge]="stats().total" matBadgePosition="after" matBadgeColor="primary">
-            Total
-          </mat-chip>
-          <mat-chip [matBadge]="stats().confirmed" matBadgePosition="after" matBadgeColor="primary">
-            Confirmed
-          </mat-chip>
-          <mat-chip [matBadge]="stats().pending" matBadgePosition="after" matBadgeColor="accent">
-            Pending
-          </mat-chip>
-          <mat-chip [matBadge]="stats().cancelled" matBadgePosition="after" matBadgeColor="warn">
-            Cancelled
-          </mat-chip>
-        </mat-chip-set>
-      </div>
     </div>
   </mat-toolbar>
-
-  <!-- Filters Card -->
-  <mat-card class="filters-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon>filter_list</mat-icon>
-        Filters
-      </mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-      <div class="filters-grid">
-        <!-- Search Input -->
-        <mat-form-field appearance="outline" class="search-field">
-          <mat-label>Search bookings</mat-label>
-          <mat-icon matPrefix>search</mat-icon>
-          <input
-            matInput
-            [(ngModel)]="searchTerm"
-            (ngModelChange)="onSearchChange()"
-            placeholder="Name, booking number, airport..."
-          >
-          @if (searchTerm()) {
-            <button matSuffix mat-icon-button (click)="searchTerm.set(''); onSearchChange()">
-              <mat-icon>clear</mat-icon>
-            </button>
-          }
-        </mat-form-field>
-
-        <!-- Status Filter -->
-        <mat-form-field appearance="outline">
-          <mat-label>Status</mat-label>
-          <mat-select
-            [(ngModel)]="selectedStatus"
-            (ngModelChange)="onStatusChange()"
-          >
-            @for (option of statusOptions; track option.value) {
-              <mat-option [value]="option.value">{{ option.label }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <!-- Date From -->
-        <mat-form-field appearance="outline">
-          <mat-label>Date From</mat-label>
-          <input
-            matInput
-            [matDatepicker]="dateFromPicker"
-            [(ngModel)]="dateFrom"
-            (ngModelChange)="onDateFromChange()"
-          >
-          <mat-datepicker-toggle matIconSuffix [for]="dateFromPicker"></mat-datepicker-toggle>
-          <mat-datepicker #dateFromPicker></mat-datepicker>
-        </mat-form-field>
-
-        <!-- Date To -->
-        <mat-form-field appearance="outline">
-          <mat-label>Date To</mat-label>
-          <input
-            matInput
-            [matDatepicker]="dateToPicker"
-            [(ngModel)]="dateTo"
-            (ngModelChange)="onDateToChange()"
-          >
-          <mat-datepicker-toggle matIconSuffix [for]="dateToPicker"></mat-datepicker-toggle>
-          <mat-datepicker #dateToPicker></mat-datepicker>
-        </mat-form-field>
-
-        <!-- Action Buttons -->
-        <div class="filter-actions">
-          <button mat-raised-button color="primary" (click)="clearFilters()">
-            <mat-icon>clear_all</mat-icon>
-            Clear Filters
-          </button>
-
-          <button mat-raised-button color="accent" (click)="exportToCSV()">
-            <mat-icon>download</mat-icon>
-            Export CSV
-          </button>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
 
   <!-- Data Table Card -->
   <mat-card class="table-card">
@@ -174,44 +74,6 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Seat</th>
             <td mat-cell *matCellDef="let booking">
               <span class="seat-number">{{ booking.seat }}</span>
-            </td>
-          </ng-container>
-
-          <!-- Actions Column -->
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let booking">
-              <div class="actions-cell">
-                <button
-                  mat-icon-button
-                  color="primary"
-                  matTooltip="View Details"
-                  (click)="viewBookingDetails(booking)"
-                >
-                  <mat-icon>visibility</mat-icon>
-                </button>
-
-                <button
-                  mat-icon-button
-                  color="accent"
-                  matTooltip="Edit Booking"
-                  (click)="editBooking(booking)"
-                  [disabled]="booking.bookingStatus === 'CANCELLED'"
-                >
-                  <mat-icon>edit</mat-icon>
-                </button>
-
-                @if (booking.bookingStatus !== 'CANCELLED') {
-                  <button
-                    mat-icon-button
-                    color="warn"
-                    matTooltip="Cancel Booking"
-                    (click)="cancelBooking(booking)"
-                  >
-                    <mat-icon>cancel</mat-icon>
-                  </button>
-                }
-              </div>
             </td>
           </ng-container>
 
