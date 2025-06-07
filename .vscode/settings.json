@@ -11,5 +11,6 @@
     "spring-boot.ls.problem.application-properties.PROP_NO_MATCHING_RBRACKET": "WARNING",
     "spring-boot.ls.problem.application-properties.PROP_NON_INTEGER_IN_BRACKETS": "WARNING",
     "spring-boot.ls.problem.application-properties.PROP_INVALID_BEAN_NAVIGATION": "WARNING",
-    "spring-boot.ls.problem.application-properties.PROP_INVALID_INDEXED_NAVIGATION": "WARNING"
+    "spring-boot.ls.problem.application-properties.PROP_INVALID_INDEXED_NAVIGATION": "WARNING",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
