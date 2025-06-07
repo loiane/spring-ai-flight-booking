@@ -31,6 +31,10 @@ A modern, full-stack flight booking application powered by Spring AI and OpenAI,
 - **Vector Store**: PGVector for document similarity search
 - **Container**: Docker Compose for local development
 
+<p align="center">
+  <img src="./docs/springFly.png" alt="Screenshot Main Page" width="100%">
+</p>
+
 ## 🛠️ Technology Stack
 
 ### Backend
