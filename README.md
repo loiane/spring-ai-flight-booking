@@ -2,7 +2,7 @@
 
 **SpringFly Airlines** - Revolutionizing air travel with AI-powered customer service! ✈️🤖
 
-A modern, full-stack flight booking application powered by Spring AI and OpenAI, featuring an intelligent customer support chatbot and comprehensive booking management system.
+A modern, full-stack flight booking application powered by Spring AI, Angular and Gemini, featuring an intelligent customer support chatbot and comprehensive booking management system.
 
 ![SpringFly Airlines](https://img.shields.io/badge/SpringFly-Airlines-blue)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.0-brightgreen)
@@ -13,7 +13,7 @@ A modern, full-stack flight booking application powered by Spring AI and OpenAI,
 ## 🚀 Features
 
 ### 🤖 AI-Powered Customer Support
-- **Intelligent Chatbot**: OpenAI GPT-4 powered customer service agent
+- **Intelligent Chatbot**: Gemini powered customer service agent
 - **RAG Implementation**: Retrieval-Augmented Generation using PGVector for company policies
 - **Function Calling**: Direct integration with booking tools for real-time operations
 - **Memory Management**: Persistent conversation history across chat sessions
@@ -27,7 +27,7 @@ A modern, full-stack flight booking application powered by Spring AI and OpenAI,
 - **Backend**: Spring Boot 3.5.0 with Spring AI framework
 - **Frontend**: Angular v20 with Angular Material
 - **Database**: PostgreSQL with PGVector extension for embeddings
-- **AI Integration**: OpenAI GPT-4 for chat completions
+- **AI Integration**: Gemini for chat completions
 - **Vector Store**: PGVector for document similarity search
 - **Container**: Docker Compose for local development
 
@@ -40,7 +40,7 @@ A modern, full-stack flight booking application powered by Spring AI and OpenAI,
 ### Backend
 - **Spring Boot 3.5.0** - Main application framework
 - **Spring AI 1.0.0** - AI integration and tooling
-- **OpenAI GPT-4** - Language model for chat responses
+- **Gemini** - Language model for chat responses
 - **PostgreSQL** - Primary database
 - **PGVector** - Vector database for embeddings
 - **Java 24** - Programming language
@@ -61,7 +61,7 @@ A modern, full-stack flight booking application powered by Spring AI and OpenAI,
 - **Java 24** or higher
 - **Node.js 18+** and npm
 - **Docker** and Docker Compose
-- **OpenAI API Key**
+- **Gemini Project key**
 
 ## 🚀 Quick Start
 
@@ -74,7 +74,6 @@ cd spring-ai-flight-booking
 ### 2. Environment Setup
 Create a `.env` file in the root directory:
 ```env
-OPENAI_API_KEY=your_openai_api_key_here
 DB_PASSWORD=secret
 ```
 
