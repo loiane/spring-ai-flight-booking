@@ -16,7 +16,7 @@
     "@angular/core": "^20.0.3",
     "@angular/forms": "^20.0.3",
     "@angular/material": "^20.0.3",
-    "@angular/platform-browser": "^20.0.3",
+    "@angular/platform-browser": "^20.1.6",
     "@angular/router": "^20.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
