@@ -20,7 +20,8 @@ public class ChatService {
   private final String promptVersion;
 
   public ChatService(ChatClient.Builder chatClientBuilder, ChatMemory chatMemory,
-      VectorStore vectorStore, BookingTools bookingTools, SystemPrompt systemPrompt) {
+      VectorStore vectorStore, BookingTools bookingTools, ValidationTools validationTools,
+      SystemPrompt systemPrompt) {
     
     this.promptVersion = systemPrompt.version();
     log.info("Initializing ChatService with prompt version: {}", promptVersion);
@@ -31,7 +32,7 @@ public class ChatService {
                         MessageChatMemoryAdvisor.builder(chatMemory).build(),
                         QuestionAnswerAdvisor.builder(vectorStore).build()
                 )
-                .defaultTools(bookingTools)
+                .defaultTools(bookingTools, validationTools)
                 .build();
   }
 
