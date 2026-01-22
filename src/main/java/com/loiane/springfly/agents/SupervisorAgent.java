@@ -64,9 +64,7 @@ public class SupervisorAgent {
         log.info("Routing decision: {}", routingDecision);
 
         // Route to the appropriate specialist agent
-        String response = routeToAgent(routingDecision.trim().toUpperCase(), chatId, userMessage);
-        
-        return response;
+        return routeToAgent(routingDecision.trim().toUpperCase(), chatId, userMessage);
     }
 
     private String routeToAgent(String decision, String chatId, String userMessage) {
