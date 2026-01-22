@@ -38,13 +38,30 @@ public class BookingService {
 		return toBookingDetails(booking);
 	}
 
+  public void changeFlightDate(String bookingNumber, String firstName, String lastName, String newDate) {
+    var booking = findBooking(bookingNumber, firstName, lastName);
+    if (booking.getBookingTo().isBefore(LocalDate.now().plusDays(1))) {
+      throw new IllegalArgumentException("Booking cannot be changed within 24 hours of the start date.");
+    }
+    booking.setBookingTo(LocalDate.parse(newDate));
+  }
+
+  public void changeFlightRoute(String bookingNumber, String firstName, String lastName, String from, String to) {
+    var booking = findBooking(bookingNumber, firstName, lastName);
+    if (booking.getBookingTo().isBefore(LocalDate.now().plusDays(1))) {
+      throw new IllegalArgumentException("Booking cannot be changed within 24 hours of the start date.");
+    }
+    booking.setFrom(from);
+    booking.setTo(to);
+  }
+
   public void changeBooking(String bookingNumber, String firstName, String lastName, String newDate, String from,
 			String to) {
 		var booking = findBooking(bookingNumber, firstName, lastName);
 		if (booking.getBookingTo().isBefore(LocalDate.now().plusDays(1))) {
 			throw new IllegalArgumentException("Booking cannot be changed within 24 hours of the start date.");
 		}
-		booking.setDate(LocalDate.parse(newDate));
+		booking.setBookingTo(LocalDate.parse(newDate));
 		booking.setFrom(from);
 		booking.setTo(to);
 	}
