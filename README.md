@@ -4,6 +4,7 @@
 
 A modern, full-stack flight booking application powered by Spring AI, Angular and Gemini, featuring an intelligent customer support chatbot and comprehensive booking management system.
 
+[![Build](https://github.com/loiane/spring-ai-flight-booking/actions/workflows/build.yml/badge.svg)](https://github.com/loiane/spring-ai-flight-booking/actions/workflows/build.yml)
 ![SpringFly Airlines](https://img.shields.io/badge/SpringFly-Airlines-blue)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.0-brightgreen)
 ![Angular](https://img.shields.io/badge/Angular-20-red)
