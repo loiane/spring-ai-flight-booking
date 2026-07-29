@@ -1,4 +1,4 @@
-import { Component, signal, ViewChild, ElementRef, effect } from '@angular/core';
+import { Component, signal, ViewChild, ElementRef, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -36,6 +36,7 @@ interface Message {
     MatProgressSpinnerModule
   ],
   templateUrl: './chat.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent {
