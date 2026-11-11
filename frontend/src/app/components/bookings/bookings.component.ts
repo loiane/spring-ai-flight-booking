@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject, ViewChild } from '@angular/core';
+import { Component, signal, computed, inject, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatSortModule, MatSort } from '@angular/material/sort';
@@ -26,6 +26,7 @@ import { BookingService } from '../../services/booking.service';
     MatTooltipModule
   ],
   templateUrl: './bookings.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./bookings.component.scss']
 })
 export class BookingsComponent {
